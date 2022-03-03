@@ -22,7 +22,8 @@ def greedy(path,cityMap):
     citiesToVisit = citiesToVisitStart.copy()
     citiesToVisit.remove(tempPath[0])
     
-    getGreedyPath(tempPath,citiesToVisit,cityMap)
+    #getGreedyPath(tempPath,citiesToVisit,cityMap)
+    getGreedyMin(tempPath, citiesToVisit, cityMap)
 
     tempDistance =  getPathDistance(tempPath,cityMap)
     
@@ -38,8 +39,6 @@ def greedy(path,cityMap):
     while(startingCity < len(path)):
         citiesToVisit = citiesToVisitStart.copy()
 
-        
-
         tempPath = noPath.copy()
         #print("Cities to visit at start",citiesToVisit)
 
@@ -52,9 +51,10 @@ def greedy(path,cityMap):
         #print("Temp path",tempPath)
         #print("Cities to visit after picking random city",citiesToVisit)
 
-        getGreedyPath(tempPath,citiesToVisit,cityMap)
+        #getGreedyPath(tempPath,citiesToVisit,cityMap)
+        getGreedyMin(tempPath,citiesToVisit, cityMap)
 
-        tempDistance =  getPathDistance(tempPath,cityMap)
+        tempDistance = getPathDistance(tempPath,cityMap)
         
         print("Distance:", tempDistance), 
         #print(tempPath)
@@ -77,21 +77,66 @@ def pickRandomCity(citiesToVisit):
     nextCity = random.choice(citiesToVisit)
     citiesToVisit.remove(nextCity)
     return nextCity
+#def getGreedyMin2(tempPath, citiesToVisit, cityMap):
+
+
+def getGreedyMin(tempPath, citiesToVisit, cityMap):
+    for index in range((len(tempPath) - 1)):
+        print("Where I am:", tempPath[index])
+        print("Cities To Visit:", citiesToVisit)
+        print(cityMap)
+        nearestNeighborMax = np.amax(cityMap)
+        print(f' nearest neighbor max is {nearestNeighborMax}')
+        nearestNeighborMin = np.amin(cityMap[index])
+        nearestNeighbor = nearestNeighborMin
+        for checkIndex in range(len(citiesToVisit)):
+            if (np.where(cityMap[index] == nearestNeighborMin) not in citiesToVisit) :
+                nextCity = np.where(cityMap[index] == nearestNeighborMin)
+                print(f'nearest neighbor is {nearestNeighbor}')
+                print(f' next city is {nextCity}')
+                nextCityIndex = int(nextCity[0])
+                cityMap[tempPath[index]][citiesToVisit[checkIndex]] = nearestNeighborMax
+                nearestNeighborMin = np.amin(cityMap[index])
+                print(cityMap)
+                print(f' new nearest Neighbor {nearestNeighborMin}')
+                print(f' nextCityIndex is {nextCityIndex}')
+                citiesToVisit.remove(nextCityIndex)
+
+         #nearestNeighbor = np.amin(cityMap[tempPath[index]][citiesToVisit[checkIndex]])
+            #print(cityMap[tempPath[index]][citiesToVisit[checkIndex]])
+            #print(f'new nearest neighbor{nearestNeighbor}')
+            #nextDistance = cityMap[tempPath[index]][citiesToVisit[checkIndex]]
+            #print("Next Distance", nextDistance)
+            #if (nearestNeighbor == nextDistance):
+                #nearestNeighbor = nextDistance
+                #nextCity = citiesToVisit[checkIndex]
+                #print(f'nearestNeighbor {nearestNeighbor}')
+                #print(f'nextcity is {nextCity}')
+                #break
+        # load the winner from those cities to Visit
+        #tempPath[index + 1] = nextCity
+        #print("Updated temp path:", tempPath)
+        #print("We go to:", nextCity)
+        #citiesToVisit.remove(nextCity)
+
+
 
 def getGreedyPath(tempPath,citiesToVisit,cityMap):
     #print("Working Greedy Algorithm (Meat)")
     nearestNeighborMax = np.amax(cityMap)
     for index in range((len(tempPath)-1)):
-        #print("Where I am:", tempPath[index])
-        #print("Cities To Visit:", citiesToVisit)
-        #print(cityMap)
+        print("Where I am:", tempPath[index])
+        print("Cities To Visit:", citiesToVisit)
+        print(cityMap)
         nearestNeighbor = nearestNeighborMax
+        print(f'nearest neighbor is {nearestNeighbor}')
         for checkIndex in range(len(citiesToVisit)):
             nextDistance = cityMap[tempPath[index]][citiesToVisit[checkIndex]]
-            #print("Next Distance", nextDistance)
+            print("Next Distance", nextDistance)
             if(nextDistance <= nearestNeighbor):
                 nearestNeighbor = nextDistance
                 nextCity = citiesToVisit[checkIndex]
+                print(f'nextcity is {nextCity}')
         #load the winner from those cities to Visit
         tempPath[index+1] = nextCity
         #print("Updated temp path:", tempPath)

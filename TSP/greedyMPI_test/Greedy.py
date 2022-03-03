@@ -15,11 +15,11 @@ def greedy(path,cityMap):
     timeLimit = 300
     
     noPath = [0 for i in range(len(path))]
-    tempPath = noPath.copy()
+    #tempPath = noPath.copy()
     
     citiesToVisitStart = [i for i in range(len(path))]
     
-    citiesToVisit = citiesToVisitStart.copy()
+    #citiesToVisit = citiesToVisitStart.copy()
     
     startingCity = 0 + rank
     
