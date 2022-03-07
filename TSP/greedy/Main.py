@@ -3,7 +3,6 @@ from array import array
 from GetPath import getRandomPath
 from GetPathDistance import getPathDistance
 from Greedy import greedy
-from Greeting import displayGreeting
 #from GuessAndCheck import guessAndCheck
 from LoadMap import loadMap
 #from NoNoseAnt import noNoseAnt
@@ -15,7 +14,7 @@ rows, cols = (cityCount, cityCount)
 cityMap = [[0 for i in range(cols)] for j in range(rows)]
 path = [0 for i in range(cols)]
 
-displayGreeting()
+
 #displayPlan()
 cityMap = loadMap(cityCount, cityMap)
 

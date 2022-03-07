@@ -1,6 +1,7 @@
 
 def getPathDistance(path,cityMap):
-    #print("Get path distance.")
+    print("Get path distance.")
+    print(path)
     #print(cityMap)
     distance = 0;
     for pathIndex in range((len(path)-1)):
@@ -11,6 +12,8 @@ def getPathDistance(path,cityMap):
         #print(nextDistance)
         distance = distance + nextDistance
         #print("Distance so far:", distance)
+        #print("Path so far:", end="")
+        #print(path)
 
     nextDistance = cityMap[path[(len(path) -1)]][path[0]]
     #print("path Index", len(path))
