@@ -8,11 +8,12 @@ def getPathDistance(path,cityMap):
         #print("path Index", pathIndex)
         #print("From City", path[pathIndex])
         #print("To City", path[(pathIndex + 1)])
-        nextDistance = cityMap[path[pathIndex]][path[(pathIndex + 1)]]
-        #print(nextDistance)
+        if cityMap[path[pathIndex]][path[(pathIndex + 1)]] != 100000:
+            nextDistance = cityMap[path[pathIndex]][path[(pathIndex + 1)]]
+        print(nextDistance)
         distance = distance + nextDistance
-        #print("Distance so far:", distance)
-        #print("Path so far:", end="")
+        print("Distance so far:", distance)
+        print("Path so far:", end="")
         #print(path)
 
     nextDistance = cityMap[path[(len(path) -1)]][path[0]]

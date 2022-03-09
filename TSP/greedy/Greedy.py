@@ -45,6 +45,7 @@ def greedy(path,cityMap):
     while_counter = 0
     while(startingCity < len(path)):
         citiesToVisit = citiesToVisitStart.copy()
+        #citiesToVisit = citiesToVisitStart
         print(f' while counter {while_counter}')
         tempPath = noPath.copy()
         #print("Cities to visit at start",citiesToVisit)
@@ -73,8 +74,8 @@ def greedy(path,cityMap):
         else:
             failToImprove = failToImprove + 1
             print("Failed to improve.")
-
     while_counter += 1
+    print(f' while_counter after {while_counter}')
     stopTime = time.time()
     print("Greedy Path:", path)
     distance = getPathDistance(path,cityMap)
@@ -93,17 +94,20 @@ def getGreedyMin(tempPath, citiesToVisit, cityMap, startingCity):
     print(f' minarray {minArray[startingCity]}')
     nextCityIndex = minArray[startingCity]
     print(f' line 94 cities to visit {citiesToVisit}')
-    if (nextCityIndex in citiesToVisit):
-        citiesToVisit.remove(nextCityIndex)
-        print("This city has not been visited")
-        tempPath[startingCity + 1] = nextCityIndex
-        print(f' line 99 cities to visit {citiesToVisit}')
+    while (len(citiesToVisit) != 0):
+        if nextCityIndex in citiesToVisit and (tempPath[startingCity + 1] is not None):
+            citiesToVisit.remove(nextCityIndex)
+            print("This city has not been visited")
 
-    else:
-        cityMap[startingCity, nextCityIndex] = 100000
-        print(cityMap)
-        print("This city has been visited")
-        getGreedyMin(tempPath, citiesToVisit, cityMap, startingCity)
+            tempPath[startingCity + 1] = nextCityIndex
+            print(f' line 99 cities to visit {citiesToVisit}')
+            #startingCity +=1
+            startingCity = nextCityIndex
+        else:
+            cityMap[startingCity, nextCityIndex] = 100000
+            print(cityMap)
+            print("This city has been visited")
+            getGreedyMin(tempPath, citiesToVisit, cityMap, startingCity)
 
 
 
