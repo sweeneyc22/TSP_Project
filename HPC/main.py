@@ -48,12 +48,16 @@ minimum_Data = minRow(cityMap, cityCount)
 print(f'the closest city to {minimum_Data[0]} is \
 {minimum_Data[1]} with a distance of {cityMap[minimum_Data[0]][minimum_Data[1]]}.')
 
+startingCity = minimum_Data[0]
+nextCity = minimum_Data[1]
+
+
 print("new")
-startingCity = cityMap[0]
-print('Starting city: ' + str(cityMap[0]))
+#startingCity = cityMap[0]
+print('Starting city: ' + str(startingCity))
 
 #Begin at the first city
-nextCity = startingCity
+#nextCity = startingCity
 
 #Find the min val of cityMap[0]
 print(str(cityMap[0].min()))
