@@ -112,11 +112,6 @@ def getGreedyMin2(tempPath, citiesToVisit, cityMap, begin):
                     print(f"This city {nextCityIndex} been visited")
 
 
-
-
-
-
-
 def getGreedyMin(tempPath, citiesToVisit, cityMap, startingCity):
     minArray = np.argmin(cityMap, axis=1)
     print(f' minarray {minArray[startingCity]}')
