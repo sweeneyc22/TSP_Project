@@ -1,6 +1,7 @@
 from BuildMap import buildMap
 import numpy as np
 from os import path
+import time
 
 def loadMap(cityCount):
 	fileName = f"spp{cityCount}.bin"
