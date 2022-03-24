@@ -10,17 +10,17 @@ def getPathDistance(path,cityMap):
         #print("To City", path[(pathIndex + 1)])
         cityMap[path[pathIndex]][path[(pathIndex + 1)]]
         nextDistance = cityMap[path[pathIndex]][path[(pathIndex + 1)]]
-        #print(nextDistance)
+        print(nextDistance)
         distance = distance + nextDistance
         #print("Distance so far:", distance)
         #print("Path so far:", end="")
         #print(path)
 
-    nextDistance = cityMap[path[(len(path) -1)]][path[0]]
+    #nextDistance = cityMap[path[(len(path) -1)]][path[0]]
     #print("path Index", len(path))
     #print("From City", path[(len(path)-1)])
     #print("To City", path[0])
     #print(nextDistance)
-    distance = distance + nextDistance
+    #distance = distance + nextDistance
     #print("total path distance", distance)
     return distance

@@ -12,13 +12,13 @@ from LoadMap import loadMap
 
 cityCount = 6
 rows, cols = (cityCount, cityCount)
-cityMap = [[0 for i in range(cols)] for j in range(rows)]
+cityMapStart = [[0 for i in range(cols)] for j in range(rows)]
 path = [0 for i in range(cols)]
 
 # displayPlan()
-cityMap = loadMap(cityCount, cityMap)
+cityMapStart = loadMap(cityCount, cityMapStart)
 
 # guessAndCheck(path,cityMap)
-greedy(path, cityMap)
+greedy(path, cityMapStart)
 # bruteForce(path,cityMap)
 # noNoseAnt(path,cityMap)

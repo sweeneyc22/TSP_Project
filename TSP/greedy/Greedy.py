@@ -4,14 +4,15 @@ import numpy as np
 import random
 import time
 
-def greedy(path,cityMap):
+def greedy(path,cityMapStart):
     #print("\n\nStart of Greedy Algorithm")
 
     startTime = time.time()
     failToImprove = 0
-    noPath = [0 for i in range(len(path))]
+    #noPath = [0 for i in range(len(path))]
+    #tempPath = noPath.copy()
+    noPath = []
     tempPath = noPath.copy()
-    
 
     #getRandomPath(tempPath)
     #shortestDistance = getPathDistance(tempPath,cityMap)
@@ -21,11 +22,13 @@ def greedy(path,cityMap):
     #for index in range(len(path)):
             #citiesToVisitStart[index] = index
     citiesToVisit = citiesToVisitStart.copy()
+    cityMap = cityMapStart.copy()
     startingCity = 0
     nextCityIndex = 0
     begin =0;
-    cityMapStart = cityMap.copy()
+
     #print(f' temppath[0] {tempPath[0]}')
+    tempPath.append(startingCity)
     citiesToVisit.remove(startingCity)
     #print(f' cities to visit {citiesToVisit}')
 
@@ -33,12 +36,13 @@ def greedy(path,cityMap):
     print(f' temp path {tempPath}')
     #getGreedyPath(tempPath,citiesToVisit,cityMap)
     #getGreedyMin(tempPath, citiesToVisit, cityMap, startingCity)
-    getGreedyMin2(tempPath, citiesToVisit, cityMap, begin, nextCityIndex)
+    #getGreedyMin2(tempPath, citiesToVisit, cityMap, begin, nextCityIndex)
+    findMin(tempPath, citiesToVisit, cityMap, begin,path)
     print(f' temp path after getGreedyMin2 {tempPath}')
 
     tempDistance = getPathDistance(tempPath,cityMap)
     
-    print("Distance:", tempDistance), 
+    print("Distance:", tempDistance),
     print(tempPath)
     
     shortestDistance = tempDistance
@@ -47,26 +51,28 @@ def greedy(path,cityMap):
     limitOnTimesToFailToImprove = 1000
 
     while_counter = 0
-    """while(startingCity < len(path)):
+    while(startingCity < len(path)):
         citiesToVisit = citiesToVisitStart.copy()
-
+        cityMap = cityMapStart.copy()
         #citiesToVisit = citiesToVisitStart
         print(f' while counter {while_counter}')
         tempPath = noPath.copy()
         #print("Cities to visit at start",citiesToVisit)
 
-        tempPath[0] = startingCity
+        #tempPath[0] = startingCity
+        tempPath.append(startingCity)
         citiesToVisit.remove(startingCity)
         
         startingCity = startingCity + 1
-        
+
         print("Place to start:", tempPath[0])
         #print("Temp path",tempPath)
         #print("Cities to visit after picking random city",citiesToVisit)
 
         #getGreedyPath(tempPath,citiesToVisit,cityMap)
         #getGreedyMin(tempPath,citiesToVisit, cityMap, startingCity)
-        getGreedyMin2(tempPath, citiesToVisit, cityMap, begin)
+        #getGreedyMin2(tempPath, citiesToVisit, cityMap, begin)
+        findMin(tempPath, citiesToVisit, cityMap, begin, path)
         tempDistance = getPathDistance(tempPath,cityMap)
         
         print("Distance:", tempDistance), 
@@ -79,21 +85,45 @@ def greedy(path,cityMap):
         else:
             failToImprove = failToImprove + 1
             print("Failed to improve.")
-    while_counter += 1"""
+    while_counter += 1
     print(f' while_counter after {while_counter}')
     stopTime = time.time()
     print("Greedy Path:", path)
-    distance = getPathDistance(path,cityMap)
+    distance = getPathDistance(path,cityMapStart)
     print("Greedy Distance:", distance)
     print("Greedy Time:", (stopTime - startTime))
 
-def findMin(tempPath, citiesToVisit, cityMap, begin):
+def findMin(tempPath, citiesToVisit, cityMap, begin, path):
+    print(cityMap)
     minArray = np.argmin(cityMap, axis=1)
     print(f' This is the min array {minArray}')
-    print(f' minarray {minArray[begin]}')
-    nextCityIndex = minArray[begin]
-    print(f' nextCityIndex {nextCityIndex}')
+    #print(f' nextCityIndex {nextCityIndex}')
     print(f' line 94 cities to visit {citiesToVisit}')
+    #for index in range(len(path)+2):
+    while (len(tempPath) != len(path)):
+        minArray = np.argmin(cityMap, axis=1)
+        print(f' This is the min array {minArray}')
+        print(f' minarray {minArray[begin]}')
+        nextCityIndex = minArray[begin]
+    #while len(citiesToVisit) >= 1:
+        if nextCityIndex in citiesToVisit:
+                print(f" This city {nextCityIndex} has not been visited")
+                citiesToVisit.remove(nextCityIndex)
+               #print(f' this is the IDEX {index}')
+                #tempPath[index] = nextCityIndex
+                tempPath.append(nextCityIndex)
+                print(f' current tempPath {tempPath}')
+                print(f' line 99 cities to visit {citiesToVisit}')
+                begin = nextCityIndex
+                #findMin(tempPath, citiesToVisit, cityMap, begin)
+                # startingCity = nextCityIndex
+                # cityMap = cityMapCopy
+
+        else:
+            cityMap[begin, nextCityIndex] = 100000
+            print(cityMap)
+            print(f"This city {nextCityIndex} been visited")
+            #findMin(tempPath, citiesToVisit, cityMap, begin)
 
 def getGreedyMin2(tempPath, citiesToVisit, cityMap, begin, nextCityIndex):
     minArray = np.argmin(cityMap, axis=1)
@@ -109,22 +139,8 @@ def getGreedyMin2(tempPath, citiesToVisit, cityMap, begin, nextCityIndex):
         print(f' nextCityIndex {nextCityIndex}')
         print(f' line 94 cities to visit {citiesToVisit}')"""
         for checkIndex in range(len(citiesToVisit)):
-        #while citiesToVisit !=0:
-                if nextCityIndex in citiesToVisit:
-                    print(f" This city {nextCityIndex} has not been visited")
-                    citiesToVisit.remove(nextCityIndex)
-                    tempPath[checkIndex + 1] = nextCityIndex
-                    print(f' current tempPath {tempPath}')
-                    print(f' line 99 cities to visit {citiesToVisit}')
-                    begin = nextCityIndex
-                    # startingCity = nextCityIndex
-                    #cityMap = cityMapCopy
+            findMin(tempPath, citiesToVisit, cityMap, begin)
 
-                else:
-                    cityMap[begin, nextCityIndex] = 100000
-                    print(cityMap)
-                    print(f"This city {nextCityIndex} been visited")
-                    findMin(tempPath, citiesToVisit, cityMap, begin)
 
 
 def getGreedyMin(tempPath, citiesToVisit, cityMap, startingCity):
