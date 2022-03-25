@@ -25,7 +25,7 @@ def greedy(path,cityMapStart):
     cityMap = cityMapStart.copy()
     startingCity = 0
     nextCityIndex = 0
-    begin =0;
+    begin =startingCity;
 
     #print(f' temppath[0] {tempPath[0]}')
     tempPath.append(startingCity)
@@ -64,6 +64,8 @@ def greedy(path,cityMapStart):
         citiesToVisit.remove(startingCity)
         
         startingCity = startingCity + 1
+        begin = startingCity - 1
+        print(f' begin is {begin}')
 
         print("Place to start:", tempPath[0])
         #print("Temp path",tempPath)
